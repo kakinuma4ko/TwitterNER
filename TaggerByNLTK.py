@@ -8,7 +8,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 # from nltk.book import *
-DATAPATH = YOURPATH
+DATAPATH = '/Users/suntian/Developer/NLP/data/data/'
 RESULTPATH = DATAPATH + '../result/'
 
 def myLog(str):
@@ -43,12 +43,17 @@ def tagfromfile(filename):
     tempFile = codecs.open(RESULTPATH+filename+'.temp', 'r', 'utf-8')
     corpusFile = codecs.open(RESULTPATH+filename+'.corpus', 'w', 'utf-8')
     nerCorpusFile = codecs.open(RESULTPATH+filename+'.ner.corpus', 'w', 'utf-8')
+    textFile = codecs.open(RESULTPATH+filename+'.text', 'w', 'utf-8')
 
     subJson = json.load(tempFile)
+
     jsonTextArray = subJson['subtext']
     for jsonText in jsonTextArray:
         myLog(str(jsonText['num']))
         # print jsonText['text']
+        textFile.write(jsonText['text'])
+        textFile.write('\n')
+
         httpsPattern = re.compile('https://t.co/\w*', re.S)
         items = re.findall(httpsPattern, jsonText['text'])
         httpsArray = []
@@ -106,5 +111,4 @@ print os.listdir(DATAPATH)
 for filename in os.listdir(DATAPATH):
     if filename[0] != '.':
         tagfromfile(filename)
-
 
