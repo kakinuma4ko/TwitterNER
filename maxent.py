@@ -13,14 +13,12 @@ class MaxEnt(object):
             # at least two columns
             if len(fields) < 2: continue
             # the first column is label
-            # print len(fields)
-            label = fields[len(fields)-1]
+            label = fields[0]
             self.labels.add(label)
-            for f in set(fields[0:len(fields-2)]):
+            for f in set(fields[1:]):
                 # (label,f) tuple is feature 
                 self.feats[(label,f)] += 1
             self.trainset.append(fields)
-            print fields
             
     def _initparams(self):
         self.size = len(self.trainset)
