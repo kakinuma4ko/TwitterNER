@@ -22,3 +22,4 @@ for filename in tner.files:
                 stfOutFile.write(' STFNER\n')
             else:
                 stfOutFile.write(' O\n')
+    print ''
